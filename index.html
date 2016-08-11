@@ -1,0 +1,16 @@
+<!doctype html>
+<script src="https://npmcdn.com/react@latest/dist/react-with-addons.js"></script>
+<script src="https://npmcdn.com/react-dom@latest/dist/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+<body>
+<div id="container"></div>
+
+<script type="text/babel">
+var Hello = React.createClass({
+  render: function() {
+    return <div>Hello {this.props.name}</div>;
+  }
+});
+
+ReactDOM.render(<Hello name="World" />,document.getElementById('container'));
+</script>
