@@ -51,11 +51,20 @@ const defaultAppData = {
   ]
 };
 
+// borrowing this cute pattern from min-vid ^_^
+window.AppData = new Proxy(defaultAppData, {
+  set: function(obj, prop, value) {
+    obj[prop] = value;
+    renderApp();
+    return true;
+  }
+});
+
 let TodoApp = React.createClass({
   render: function() {
     return <div id="app">
             <TodoForm />
-            <TodoList todos={defaultAppData.todos} />
+            <TodoList todos={this.props.data.todos} />
            </div>;
   }
 });
@@ -97,5 +106,8 @@ let TodoForm = React.createClass({
   }
 });
 
-ReactDOM.render(<TodoApp />, document.getElementById('thee-todo-list'));
+function renderApp() {
+  ReactDOM.render(<TodoApp data={window.AppData} />, document.getElementById('thee-todo-list'));
+}
+renderApp();
 </script>
