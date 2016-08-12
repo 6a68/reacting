@@ -44,10 +44,40 @@ ReactDOM.render(<Hello name="World" />,document.getElementById('container'));
 // React's big thing is separating out the state, so, what state do we need?
 // Is this enough?
 const defaultAppData = {
+  // stored in the order they are rendered. id != ordering.
   todos: [
-    {value: 'Learn React', done: false},
-    {value: 'Take a Nap', done: false}
+    {value: 'Learn React', done: false, id: 2},
+    {value: 'Take a Nap', done: false, id: 1}
   ]
 };
+
+let TodoApp = React.createClass({
+  render: function() {
+    return <div id="app">
+            <TodoForm />
+            <TodoList todos={this.props.todos} />
+           </div>;
+  }
+});
+
+let TodoList = React.createClass({
+  render: function() {
+    return <div id="todolist">
+             <ol>
+               <Todo value="Learn React" done="false" />
+               <Todo value="Take a Nap" done="false" />
+             </ol>
+           </div>;
+  }
+});
+
+let Todo = React.createClass({
+  render: function() {
+    return <li className="todo" id={this.props.id}>
+             <div className="delete"></div>
+             <input className="done" type="checkbox" checked={this.props.done} />
+           </li>
+  }
+});
 
 </script>
