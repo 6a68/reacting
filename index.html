@@ -46,8 +46,8 @@ ReactDOM.render(<Hello name="World" />,document.getElementById('container'));
 const defaultAppData = {
   // stored in the order they are rendered. id != ordering.
   todos: [
-    {value: 'Learn React', done: false, id: 2},
-    {value: 'Take a Nap', done: false, id: 1}
+    {text: 'Learn React', done: false, id: 2},
+    {text: 'Take a Nap', done: false, id: 1}
   ]
 };
 
@@ -55,17 +55,20 @@ let TodoApp = React.createClass({
   render: function() {
     return <div id="app">
             <TodoForm />
-            <TodoList todos={this.props.todos} />
+            <TodoList todos={defaultAppData.todos} />
            </div>;
   }
 });
 
 let TodoList = React.createClass({
   render: function() {
+    // borrowed this cute trick from the react tutorial
+    let todoNodes = this.props.todos.map(todo => {
+      return <Todo data-id={todo.id} text={todo.text} done={todo.done} />;
+    });
     return <div id="todolist">
              <ol>
-               <Todo value="Learn React" done="false" />
-               <Todo value="Take a Nap" done="false" />
+              {todoNodes}
              </ol>
            </div>;
   }
@@ -73,10 +76,24 @@ let TodoList = React.createClass({
 
 let Todo = React.createClass({
   render: function() {
-    return <li className="todo" id={this.props.id}>
+    return <li className="todo" data-id={this.props.id}>
              <div className="delete"></div>
              <input className="done" type="checkbox" checked={this.props.done} />
-           </li>
+             <span class="editable" contenteditable="true">{this.props.text}</span>
+           </li>;
+  }
+});
+
+let TodoForm = React.createClass({
+  render: function() {
+    return <div id="todoform">
+       <p><em>To create a new todo, type in the item below, then hit Enter.</em></p>
+       <ul>
+         <li id="new-todo">
+           <span class="editable" contenteditable="true">Type your todo here</span>
+         </li>
+       </ul>
+     </div>;
   }
 });
 
