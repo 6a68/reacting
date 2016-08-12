@@ -64,7 +64,7 @@ let TodoList = React.createClass({
   render: function() {
     // borrowed this cute trick from the react tutorial
     let todoNodes = this.props.todos.map(todo => {
-      return <Todo data-id={todo.id} text={todo.text} done={todo.done} />;
+      return <Todo key={todo.id} id={todo.id} text={todo.text} done={todo.done} />;
     });
     return <div id="todolist">
              <ol>
@@ -79,7 +79,7 @@ let Todo = React.createClass({
     return <li className="todo" data-id={this.props.id}>
              <div className="delete"></div>
              <input className="done" type="checkbox" checked={this.props.done} />
-             <span class="editable" contenteditable="true">{this.props.text}</span>
+             <span className="editable" contentEditable="true">{this.props.text}</span>
            </li>;
   }
 });
@@ -90,7 +90,7 @@ let TodoForm = React.createClass({
        <p><em>To create a new todo, type in the item below, then hit Enter.</em></p>
        <ul>
          <li id="new-todo">
-           <span class="editable" contenteditable="true">Type your todo here</span>
+           <span className="editable" contentEditable="true">Type your todo here</span>
          </li>
        </ul>
      </div>;
