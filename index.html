@@ -2,7 +2,6 @@
 <script src="https://npmcdn.com/react@latest/dist/react-with-addons.js"></script>
 <script src="https://npmcdn.com/react-dom@latest/dist/react-dom.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
-<body>
 <div id="container"></div>
 
 <script type="text/babel">
@@ -13,4 +12,33 @@ var Hello = React.createClass({
 });
 
 ReactDOM.render(<Hello name="World" />,document.getElementById('container'));
+
+// Let's create a simple todo list.
+// Maybe it looks like this:
+//
+// <div id="app">
+//   <div id="todoform">
+//     <p><em>To create a new todo, type in the item below, then hit Enter.</em></p>
+//     <ul>
+//       <li class="new-todo" id="">
+//         <span class="editable" contenteditable="true">Click this element to edit</span>
+//       </li>
+//     </ul> 
+//   </div>
+//   <div id="todolist">
+//     <ol>
+//       <li class="todo" id="0">
+//           <div class="delete"></div>
+//           <input class="done" type="checkbox" checked="false">
+//           <span class="editable" contenteditable="true">Learn React</span>
+//       </li>
+//       <li class="todo" id="1">
+//           <div class="delete"></div>
+//           <input class="done" type="checkbox" checked="false">
+//           <span class="editable" contenteditable="true">Take a Nap</span>
+//       </li>
+//     </ol>
+//   </div>
+// </div>
+
 </script>
