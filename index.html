@@ -51,7 +51,7 @@ const defaultAppData = {
   ]
 };
 
-// borrowing this cute pattern from min-vid ^_^
+// borrowing this pattern from min-vid ^_^
 window.AppData = new Proxy(defaultAppData, {
   set: function(obj, prop, value) {
     obj[prop] = value;
@@ -84,22 +84,40 @@ let TodoList = React.createClass({
 });
 
 let Todo = React.createClass({
+  onChecked: function(e) {
+    e.preventDefault();
+    console.log('checkbox checked wut wut!');
+    // get the id from the element's data-id
+    // update the 'done' state in AppData for the todo with that id
+  },
+  onKeyDown: function(e) {
+    e.preventDefault();
+    console.log('todo text content changed');
+    // same deal: get the id, update the content
+  },
   render: function() {
     return <li className="todo" data-id={this.props.id}>
              <div className="delete"></div>
-             <input className="done" type="checkbox" checked={this.props.done} />
-             <span className="editable" contentEditable="true">{this.props.text}</span>
+             <input className="done" type="checkbox" checked={this.props.done} onChange={this.onChecked} />
+             <span className="editable" contentEditable="true" onKeyDown={this.onKeyDown}>{this.props.text}</span>
            </li>;
   }
 });
 
 let TodoForm = React.createClass({
+  onKeyDown: function(e) {
+    // TODO: I recall favoring keyDown over keyPress, but is that just XBL infecting my brain?
+    console.log('keydown detected!');
+    // if the key is an enter key, create a new Todo by appending to
+    // AppData.todos, then hopefully this input form will be emptied
+    // automatically when the app re-renders.
+  },
   render: function() {
     return <div id="todoform">
        <p><em>To create a new todo, type in the item below, then hit Enter.</em></p>
        <ul>
          <li id="new-todo">
-           <span className="editable" contentEditable="true">Type your todo here</span>
+           <span className="editable" contentEditable="true" onKeyDown={this.onKeyDown}>Type your todo here</span>
          </li>
        </ul>
      </div>;
